@@ -1,0 +1,1 @@
+export const PROPERTY = Symbol("ion:decorator:property");

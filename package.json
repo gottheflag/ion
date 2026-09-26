@@ -1,0 +1,89 @@
+{
+	"name": "@gottheflag/ion",
+	"version": "0.1.0-beta.1",
+	"type": "module",
+	"license": "Apache-2.0",
+	"author": {
+		"name": "GTF",
+		"email": "dev@gottheflag.sa",
+		"url": "https://gottheflag.sa"
+	},
+	"description": "Web UI components engine.",
+	"files": [
+		"dist"
+	],
+	"sideEffects": [
+		"./dist/plugin/index.js",
+		"./dist/plugin/install.js",
+		"./dist/plugin/runtime.js"
+	],
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./template": {
+			"types": "./dist/template/index.d.ts",
+			"import": "./dist/template/index.js"
+		},
+		"./decorators": {
+			"types": "./dist/decorators/index.d.ts",
+			"import": "./dist/decorators/index.js"
+		},
+		"./plugin": {
+			"types": "./dist/plugin/index.d.ts",
+			"import": "./dist/plugin/index.js"
+		},
+		"./hook": {
+			"types": "./dist/hook/index.d.ts",
+			"import": "./dist/hook/index.js"
+		}
+	},
+	"scripts": {
+		"dev": "tsc -p tsconfig.build.json --watch",
+		"build": "pnpm run clean && pnpm run build:js && pnpm run build:types",
+		"build:js": "tsc -p tsconfig.build.json",
+		"build:types": "tsc -p tsconfig.types.json",
+		"prepare": "pnpm run build",
+		"example": "tsx scripts/example.ts",
+		"test": "vitest run",
+		"bundle:check": "tsx scripts/bundle-check.ts",
+		"package:check": "tsx scripts/package-check.ts",
+		"lint": "eslint . --max-warnings=0",
+		"clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+		"typecheck": "tsc -p tsconfig.json --noEmit"
+	},
+	"keywords": [
+		"ui",
+		"web",
+		"components",
+		"library"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/gottheflag/ion"
+	},
+	"bugs": {
+		"url": "https://github.com/gottheflag/ion/issues"
+	},
+	"homepage": "https://github.com/gottheflag/ion#readme",
+	"packageManager": "pnpm@12.3.4",
+	"devDependencies": {
+		"@eslint/js": "^10.0.1",
+		"@types/node": "^22.20.4",
+		"@vitest/browser-playwright": "^5.0.0",
+		"eslint": "^10.11.0",
+		"playwright": "^1.63.0",
+		"tsx": "^4.21.0",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.70.1",
+		"vite": "^7.3.1",
+		"vitest": "^5.0.0"
+	},
+	"dependencies": {
+		"@gottheflag/lifecycle": "0.1.0"
+	}
+}

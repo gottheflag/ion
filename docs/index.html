@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Ion consumer documentation">
+	<title>Ion Documentation</title>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gottheflag/ui@0.1.0-beta.1/dist/index.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gottheflag/ui@0.1.0-beta.1/dist/button/index.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gottheflag/ui@0.1.0-beta.1/dist/avatar/index.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gottheflag/ui@0.1.0-beta.1/dist/badge/index.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gottheflag/ui@0.1.0-beta.1/dist/card/index.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gottheflag/ui@0.1.0-beta.1/dist/code/index.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gottheflag/ui@0.1.0-beta.1/dist/table/index.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gottheflag/ui@0.1.0-beta.1/dist/link/index.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gottheflag/ui@0.1.0-beta.1/dist/sidebar/index.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gottheflag/ui@0.1.0-beta.1/dist/scrollbar/index.css">
+
+	<link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+	<header class="topbar">
+		<div class="topbar-primary">
+			<label
+				class="ui-btn ui-ghost ui-sm sidebar-trigger"
+				for="docs-sidebar-toggle"
+				aria-label="Open documentation navigation"
+			>☰</label>
+
+			<a class="brand" href="#overview" aria-label="Ion documentation">
+				<span class="ui-avatar ui-sm ion-avatar" aria-hidden="true">I</span>
+				<span>
+					<strong>Ion</strong>
+					<small>Documentation</small>
+				</span>
+			</a>
+		</div>
+
+		<div class="topbar-actions">
+			<span class="ui-badge ui-info ui-subtle ui-pill ui-dot">0.1.0-beta.1</span>
+			<a class="ui-btn ui-outline ui-sm" href="../README.md">README</a>
+		</div>
+	</header>
+
+	<div class="layout">
+		<div class="sidebar-slot">
+			<aside
+				id="docs-sidebar"
+				class="ui-sidebar ui-responsive docs-sidebar"
+				aria-label="Documentation navigation"
+			>
+				<input
+					id="docs-sidebar-toggle"
+					class="ui-sidebar__toggle"
+					type="checkbox"
+					aria-label="Toggle documentation navigation"
+					aria-controls="docs-sidebar"
+				>
+	
+				<header class="sidebar-header">
+					<span class="ui-avatar ui-sm ion-avatar" aria-hidden="true">I</span>
+					<strong class="ui-sidebar__label">Ion docs</strong>
+	
+					<label
+						class="ui-btn ui-ghost ui-sm sidebar-close"
+						for="docs-sidebar-toggle"
+						aria-label="Close documentation navigation"
+					>×</label>
+				</header>
+	
+				<nav aria-label="Documentation sections">
+					<div class="ui-sidebar__group">
+						<p class="ui-sidebar__group-label">Start</p>
+	
+						<a class="ui-sidebar__item" href="#overview" aria-current="location">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">01</span>
+							<span class="ui-sidebar__label">Overview</span>
+						</a>
+						<a class="ui-sidebar__item" href="#install">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">02</span>
+							<span class="ui-sidebar__label">Install</span>
+						</a>
+						<a class="ui-sidebar__item" href="#first-component">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">03</span>
+							<span class="ui-sidebar__label">First component</span>
+						</a>
+						<a class="ui-sidebar__item" href="#registration">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">04</span>
+							<span class="ui-sidebar__label">Registration</span>
+						</a>
+					</div>
+	
+					<div class="ui-sidebar__group">
+						<p class="ui-sidebar__group-label">Core</p>
+	
+						<a class="ui-sidebar__item" href="#lifecycle">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">05</span>
+							<span class="ui-sidebar__label">Lifecycle</span>
+						</a>
+						<a class="ui-sidebar__item" href="#templates">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">06</span>
+							<span class="ui-sidebar__label">Templates</span>
+						</a>
+						<a class="ui-sidebar__item" href="#state">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">07</span>
+							<span class="ui-sidebar__label">State</span>
+						</a>
+						<a class="ui-sidebar__item" href="#properties">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">08</span>
+							<span class="ui-sidebar__label">Properties</span>
+						</a>
+						<a class="ui-sidebar__item" href="#events">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">09</span>
+							<span class="ui-sidebar__label">Events</span>
+						</a>
+						<a class="ui-sidebar__item" href="#queries">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">10</span>
+							<span class="ui-sidebar__label">Queries &amp; watchers</span>
+						</a>
+						<a class="ui-sidebar__item" href="#styles">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">11</span>
+							<span class="ui-sidebar__label">Styles</span>
+						</a>
+					</div>
+	
+					<div class="ui-sidebar__group">
+						<p class="ui-sidebar__group-label">Advanced</p>
+	
+						<a class="ui-sidebar__item" href="#cache-once">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">12</span>
+							<span class="ui-sidebar__label">Cache &amp; once</span>
+						</a>
+						<a class="ui-sidebar__item" href="#plugins">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">13</span>
+							<span class="ui-sidebar__label">Plugins</span>
+						</a>
+						<a class="ui-sidebar__item" href="#hooks">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">14</span>
+							<span class="ui-sidebar__label">Hooks</span>
+						</a>
+						<a class="ui-sidebar__item" href="#helpers">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">15</span>
+							<span class="ui-sidebar__label">Helpers</span>
+						</a>
+						<a class="ui-sidebar__item" href="#imports">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">16</span>
+							<span class="ui-sidebar__label">Import map</span>
+						</a>
+					</div>
+				</nav>
+	
+				<footer class="sidebar-footer">
+					<span class="ui-avatar ui-xs ion-avatar" aria-hidden="true">β</span>
+					<span class="ui-sidebar__label">0.1.0-beta.1</span>
+				</footer>
+			</aside>
+	
+			<label
+				class="ui-sidebar__backdrop"
+				for="docs-sidebar-toggle"
+				aria-hidden="true"
+			></label>
+	
+		</div>
+		<main>
+			<section class="hero" id="overview">
+				<p class="eyebrow">Web Components engine</p>
+				<h1>Build components without leaving the platform behind.</h1>
+				<p class="lead">
+					Ion gives Custom Elements a compact reactive model for rendering,
+					state, properties, lifecycle, events, plugins and hooks.
+				</p>
+
+				<div class="hero-actions">
+					<a class="ui-btn ui-lg" href="#first-component">Build a component</a>
+					<a class="ui-btn ui-outline ui-lg" href="#imports">API surface</a>
+				</div>
+
+				<div class="feature-grid">
+					<article class="ui-card ui-rich ui-vertical">
+						<header>Small surface</header>
+						<p>Extend <code>Component</code>, return an <code>html</code> template, and add only the decorators you need.</p>
+					</article>
+
+					<article class="ui-card ui-rich ui-vertical">
+						<header>Platform-native</header>
+						<p>Components remain real custom elements with a real shadow root, native attributes, events and DOM.</p>
+					</article>
+
+					<article class="ui-card ui-rich ui-vertical">
+						<header>Lifecycle-aware</header>
+						<p>Render scheduling, reconnect behavior, and owned event cleanup are part of the component model.</p>
+					</article>
+				</div>
+			</section>
+
+			<section id="install">
+				<p class="eyebrow">01 · Start</p>
+				<h2>Install</h2>
+				<pre><code>pnpm add @gottheflag/ion</code></pre>
+				<p>Ion exposes separate entry points so optional subsystems stay explicit and bundlers can remove unused code.</p>
+			</section>
+
+			<section id="first-component">
+				<p class="eyebrow">02 · Component</p>
+				<h2>Your first component</h2>
+
+				<pre><code>import {
+	Component,
+	Ion
+} from "@gottheflag/ion";
+
+import {
+	state
+} from "@gottheflag/ion/decorators";
+
+import {
+	html
+} from "@gottheflag/ion/template";
+
+@Ion.create("x-counter")
+class Counter extends Component {
+	@state
+	private count = 0;
+
+	protected override created() {
+		this.on(
+			"click",
+			"#increment",
+			() =&gt; {
+				this.count++;
+			}
+		);
+	}
+
+	protected override render() {
+		return html&#96;
+			&lt;button id="increment"&gt;
+				Count: &#36;{this.count}
+			&lt;/button&gt;
+		&#96;;
+	}
+}</code></pre>
+
+				<article class="ui-card ui-rich ui-vertical callout">
+					<header>Mental model</header>
+					<p>Changing reactive state schedules one render. Ion reconciles the returned template into the existing shadow DOM instead of replacing the whole root.</p>
+				</article>
+			</section>
+
+			<section id="registration">
+				<p class="eyebrow">03 · Registration</p>
+				<h2><code>Ion.create()</code></h2>
+
+				<p>Register while declaring the class:</p>
+				<pre><code>@Ion.create("x-panel")
+class Panel extends Component {}</code></pre>
+
+				<p>Or register later:</p>
+				<pre><code>class Panel extends Component {}
+
+Ion.create(
+	Panel,
+	"x-panel"
+);</code></pre>
+
+				<h3>Shadow root options</h3>
+				<pre><code>@Ion.create(
+	"x-dialog",
+	{
+		root: {
+			mode: "open",
+			delegatesFocus: true
+		}
+	}
+)
+class Dialog extends Component {}</code></pre>
+			</section>
+
+			<section id="lifecycle">
+				<p class="eyebrow">04 · Lifecycle</p>
+				<h2>A clean component cycle</h2>
+
+				<div class="table-scroll"><table class="ui-strip">
+					<thead>
+						<tr><th>Method</th><th>When it runs</th></tr>
+					</thead>
+					<tbody>
+						<tr><td><code>created()</code></td><td>After a real DOM connection. Runs again after a true disconnect/reconnect.</td></tr>
+						<tr><td><code>ready()</code></td><td>After the first successful render of that component instance.</td></tr>
+						<tr><td><code>removed()</code></td><td>After a genuine detach. Same-tick DOM moves do not create a false teardown.</td></tr>
+						<tr><td><code>adopted(oldDoc, newDoc)</code></td><td>When the element moves to another document.</td></tr>
+						<tr><td><code>attributeChanged(...)</code></td><td>When an observed attribute changes.</td></tr>
+					</tbody>
+				</table></div>
+
+				<pre><code>protected override created() {
+	this.on(
+		window,
+		"resize",
+		() =&gt; {
+			this.requestRender();
+		}
+	);
+}</code></pre>
+
+				<p>Listeners registered through <code>this.on()</code> belong to the current component lifetime and are released automatically on a real detach.</p>
+			</section>
+
+			<section id="templates">
+				<p class="eyebrow">05 · Rendering</p>
+				<h2>Templates</h2>
+
+				<pre><code>protected override render() {
+	return html&#96;
+		&lt;h2&gt;&#36;{this.title}&lt;/h2&gt;
+		&lt;ul&gt;
+			&#36;{this.items.map(
+				item =&gt; html&#96;&lt;li&gt;&#36;{item}&lt;/li&gt;&#96;
+			)}
+		&lt;/ul&gt;
+	&#96;;
+}</code></pre>
+
+				<div class="table-scroll"><table class="ui-strip">
+					<thead>
+						<tr><th>Interpolation</th><th>Behavior</th></tr>
+					</thead>
+					<tbody>
+						<tr><td>string / number / bigint</td><td>Serialized with HTML-significant characters escaped.</td></tr>
+						<tr><td>null / undefined / boolean</td><td>Renders nothing.</td></tr>
+						<tr><td>nested <code>html</code></td><td>Rendered recursively.</td></tr>
+						<tr><td>arrays</td><td>Recursively serialized using the same contract.</td></tr>
+						<tr><td>object / function / symbol / DOM Node</td><td>Rejected instead of silently stringified.</td></tr>
+					</tbody>
+				</table></div>
+
+				<article class="ui-card ui-rich ui-vertical callout">
+					<header>Context still matters.</header>
+					<p>Escaping protects serialization boundaries. Values used in URL-like or otherwise security-sensitive attributes should still be validated for that semantic context.</p>
+				</article>
+			</section>
+
+			<section id="state">
+				<p class="eyebrow">06 · Reactivity</p>
+				<h2><code>@state</code></h2>
+				<p>Use state for internal reactive values. A changed value requests a render; writing the same value again is ignored through <code>Object.is</code>.</p>
+				<pre><code>@state
+private open = false;
+
+toggle() {
+	this.open = !this.open;
+}</code></pre>
+			</section>
+
+			<section id="properties">
+				<p class="eyebrow">07 · Public state</p>
+				<h2><code>@property()</code></h2>
+
+				<pre><code>@property({
+	type: Number,
+	reflect: true,
+	render: true
+})
+value = 0;
+
+@property({
+	attribute: "busy",
+	type: Boolean
+})
+loading = false;</code></pre>
+
+				<div class="table-scroll"><table class="ui-strip">
+					<thead>
+						<tr><th>Option</th><th>Default</th><th>Purpose</th></tr>
+					</thead>
+					<tbody>
+						<tr><td><code>type</code></td><td><code>String</code></td><td>String, Number, or Boolean conversion from attributes.</td></tr>
+						<tr><td><code>reflect</code></td><td><code>true</code></td><td>Reflect property writes to the matching attribute.</td></tr>
+						<tr><td><code>render</code></td><td><code>true</code></td><td>Request a render after a changed value.</td></tr>
+						<tr><td><code>attribute</code></td><td>property name</td><td>Override the HTML attribute name.</td></tr>
+					</tbody>
+				</table></div>
+			</section>
+
+			<section id="events">
+				<p class="eyebrow">08 · Events</p>
+				<h2>Own listeners and emit typed events</h2>
+
+				<h3>Delegated event</h3>
+				<pre><code>this.on(
+	"click",
+	"[data-remove]",
+	(event, matched) =&gt; {
+		matched.remove();
+	}
+);</code></pre>
+
+				<h3>Explicit target</h3>
+				<pre><code>this.on(
+	window,
+	"keydown",
+	event =&gt; {
+		if (event.key === "Escape") {
+			this.close();
+		}
+	}
+);</code></pre>
+
+				<h3>Typed custom event</h3>
+				<pre><code>declare global {
+	interface HTMLElementEventMap {
+		"counter:change":
+			CustomEvent&lt;{
+				value: number;
+			}&gt;;
+	}
+}
+
+this.emit(
+	"counter:change",
+	{
+		value: this.count
+	}
+);</code></pre>
+
+				<p>Custom events bubble and cross the shadow boundary by default. Override <code>bubbles</code>, <code>composed</code>, or <code>cancelable</code> when needed.</p>
+			</section>
+
+			<section id="queries">
+				<p class="eyebrow">09 · DOM state</p>
+				<h2>Queries and watchers</h2>
+
+				<h3><code>@query</code></h3>
+				<pre><code>@query("#search")
+private search:
+	HTMLInputElement | null = null;
+
+@query(".row", {
+	all: true
+})
+private rows:
+	HTMLElement[] = [];</code></pre>
+
+				<p>Query properties are refreshed after every render. They are snapshots of the current rendered DOM.</p>
+
+				<h3><code>@watch</code></h3>
+				<pre><code>@watch("mode")
+private modeChanged(
+	oldValue: string | null,
+	newValue: string | null
+) {
+	console.log(
+		oldValue,
+		newValue
+	);
+}</code></pre>
+			</section>
+
+			<section id="styles">
+				<p class="eyebrow">10 · Styling</p>
+				<h2>Constructable stylesheets</h2>
+				<p>Define styles as a CSS string, a <code>CSSStyleSheet</code>, or an array containing both.</p>
+
+				<pre><code>protected static override styles = &#96;
+	:host {
+		display: block;
+	}
+
+	button {
+		border-radius: 0.5rem;
+	}
+&#96;;</code></pre>
+			</section>
+
+			<section id="cache-once">
+				<p class="eyebrow">11 · Small tools</p>
+				<h2>Cache and once</h2>
+
+				<div class="two-column">
+					<article class="ui-card ui-rich ui-vertical">
+						<header><code>@cache</code></header>
+						<p>Cache a getter or zero-argument method on first evaluation. Parameterized methods are rejected.</p>
+						<pre><code>@cache
+get expensiveValue() {
+	return compute();
+}</code></pre>
+					</article>
+
+					<article class="ui-card ui-rich ui-vertical">
+						<header><code>@once</code></header>
+						<p>Run a method at most once for each instance. Later calls are skipped.</p>
+						<pre><code>@once
+initialize() {
+	connect();
+}</code></pre>
+					</article>
+				</div>
+			</section>
+
+			<section id="plugins">
+				<p class="eyebrow">12 · Extension</p>
+				<h2>Plugins</h2>
+				<p>Plugins are optional. Import the plugin entry point only when the application needs the plugin runtime.</p>
+
+				<pre><code>import {
+	Plugin
+} from "@gottheflag/ion/plugin";
+
+class MetricsPlugin
+	extends Plugin&lt;
+		Panel,
+		{
+			label: string;
+		}
+	&gt; {
+
+	get label() {
+		return this.options.label;
+	}
+
+	protected afterRender() {
+		console.log(
+			"rendered",
+			this.host
+		);
+	}
+}
+
+Panel.use(
+	MetricsPlugin,
+	{
+		label: "dashboard"
+	}
+);</code></pre>
+
+				<p>Read a plugin API from an instance with <code>this.plugin(MetricsPlugin)</code>. Plugin lifecycle callbacks cover creation, ready, render boundaries, attribute changes, adoption and removal.</p>
+			</section>
+
+			<section id="hooks">
+				<p class="eyebrow">13 · Instrumentation</p>
+				<h2>Hooks</h2>
+				<p>Hooks observe lifecycle phases globally or for one component class. They are best suited to instrumentation and cross-cutting extensions.</p>
+
+				<pre><code>import {
+	hok
+} from "@gottheflag/ion/hook";
+
+const handle =
+	hok.afterFor(
+		Panel,
+		"render",
+		host =&gt; {
+			console.log(
+				"rendered",
+				host
+			);
+		}
+	);
+
+// later
+handle.off();</code></pre>
+
+				<p>Phases include define, init, create, render, ready, remove, attribute change, adoption, event emission, and plugin installation.</p>
+			</section>
+
+			<section id="helpers">
+				<p class="eyebrow">14 · Component API</p>
+				<h2>Helpers</h2>
+
+				<div class="table-scroll"><table class="ui-strip">
+					<thead>
+						<tr><th>API</th><th>Purpose</th></tr>
+					</thead>
+					<tbody>
+						<tr><td><code>this.$("#id")</code></td><td>First matching element inside the shadow root.</td></tr>
+						<tr><td><code>this.$$(".row")</code></td><td>All matching elements inside the shadow root.</td></tr>
+						<tr><td><code>this.attr("name")</code></td><td>Read an attribute.</td></tr>
+						<tr><td><code>this.attr("name", value)</code></td><td>Write, toggle, or remove an attribute.</td></tr>
+						<tr><td><code>this.requestRender()</code></td><td>Queue one connection-safe render.</td></tr>
+						<tr><td><code>this.on(...)</code></td><td>Register an owned event listener.</td></tr>
+						<tr><td><code>this.emit(...)</code></td><td>Dispatch a custom event.</td></tr>
+					</tbody>
+				</table></div>
+			</section>
+
+			<section id="imports">
+				<p class="eyebrow">15 · Reference</p>
+				<h2>Import map</h2>
+
+				<div class="table-scroll"><table class="ui-strip">
+					<thead>
+						<tr><th>Entry point</th><th>Main exports</th></tr>
+					</thead>
+					<tbody>
+						<tr><td><code>@gottheflag/ion</code></td><td><code>Component</code>, <code>Ion</code>, utility helpers</td></tr>
+						<tr><td><code>@gottheflag/ion/template</code></td><td><code>html</code>, template types</td></tr>
+						<tr><td><code>@gottheflag/ion/decorators</code></td><td><code>state</code>, <code>property</code>, <code>query</code>, <code>watch</code>, <code>on</code>, <code>cache</code>, <code>once</code></td></tr>
+						<tr><td><code>@gottheflag/ion/plugin</code></td><td><code>Plugin</code>, <code>withDefaults</code></td></tr>
+						<tr><td><code>@gottheflag/ion/hook</code></td><td><code>hok</code>, hook utilities and types</td></tr>
+					</tbody>
+				</table></div>
+			</section>
+
+			<section class="closing">
+				<article class="ui-card ui-rich ui-vertical">
+					<header>Keep the model simple</header>
+					<p>A component owns its state, renders a template, reacts to platform events, and releases lifetime-owned work when it truly leaves the DOM. Reach for plugins or hooks when a concern really crosses component boundaries.</p>
+					<a class="ui-btn" href="#first-component">Back to the first component</a>
+				</article>
+			</section>
+		</main>
+	</div>
+	<script type="module" src="./app.js"></script>
+</body>
+</html>

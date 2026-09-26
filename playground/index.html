@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Ion Playground — Mission Control</title>
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
+
+	<body>
+		<main class="shell">
+			<header class="hero">
+				<div>
+					<p class="eyebrow">@gottheflag/ion · playground</p>
+					<h1>Mission Control</h1>
+					<p class="lede">
+						A deliberately busy component exercising Ion's state, properties,
+						queries, events, lifecycle, hooks, plugins and template reconciler.
+					</p>
+				</div>
+
+				<div class="hero__actions">
+					<button id="reconnect" type="button">Reconnect component</button>
+					<button id="compact" type="button">Toggle compact</button>
+					<button id="review" type="button">Set review mode</button>
+				</div>
+			</header>
+
+			<section class="stage" id="stage">
+				<x-ion-mission-control mode="focus"></x-ion-mission-control>
+			</section>
+
+			<section class="event-panel" aria-labelledby="events-title">
+				<div>
+					<p class="eyebrow">composed custom events</p>
+					<h2 id="events-title">Outside the shadow root</h2>
+				</div>
+				<pre id="event-log">Waiting for component events…</pre>
+			</section>
+		</main>
+
+		<script type="module" src="./main.ts"></script>
+	</body>
+</html>

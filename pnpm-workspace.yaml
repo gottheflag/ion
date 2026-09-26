@@ -1,0 +1,10 @@
+packages:
+  - '.'
+
+pmOnFail: ignore
+
+allowBuilds:
+  esbuild: true
+
+minimumReleaseAgeExclude:
+  - '@gottheflag/lifecycle@0.1.0'
