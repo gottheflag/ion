@@ -1,7 +1,6 @@
 /**
  * Watcher options.
- * 
- * @internal
+ *
  * @see {@link watch | @watch}
  */
 export type Options = {

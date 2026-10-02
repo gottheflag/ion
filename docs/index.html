@@ -39,7 +39,7 @@
 		</div>
 
 		<div class="topbar-actions">
-			<span class="ui-badge ui-info ui-subtle ui-pill ui-dot">0.1.0-beta.1</span>
+			<span class="ui-badge ui-info ui-subtle ui-pill ui-dot">0.1.0-beta.2</span>
 			<a class="ui-btn ui-outline ui-sm" href="../README.md">README</a>
 		</div>
 	</header>
@@ -58,22 +58,22 @@
 					aria-label="Toggle documentation navigation"
 					aria-controls="docs-sidebar"
 				>
-	
+
 				<header class="sidebar-header">
 					<span class="ui-avatar ui-sm ion-avatar" aria-hidden="true">I</span>
 					<strong class="ui-sidebar__label">Ion docs</strong>
-	
+
 					<label
 						class="ui-btn ui-ghost ui-sm sidebar-close"
 						for="docs-sidebar-toggle"
 						aria-label="Close documentation navigation"
 					>×</label>
 				</header>
-	
+
 				<nav aria-label="Documentation sections">
 					<div class="ui-sidebar__group">
 						<p class="ui-sidebar__group-label">Start</p>
-	
+
 						<a class="ui-sidebar__item" href="#overview" aria-current="location">
 							<span class="ui-sidebar__icon nav-index" aria-hidden="true">01</span>
 							<span class="ui-sidebar__label">Overview</span>
@@ -91,10 +91,10 @@
 							<span class="ui-sidebar__label">Registration</span>
 						</a>
 					</div>
-	
+
 					<div class="ui-sidebar__group">
 						<p class="ui-sidebar__group-label">Core</p>
-	
+
 						<a class="ui-sidebar__item" href="#lifecycle">
 							<span class="ui-sidebar__icon nav-index" aria-hidden="true">05</span>
 							<span class="ui-sidebar__label">Lifecycle</span>
@@ -111,71 +111,75 @@
 							<span class="ui-sidebar__icon nav-index" aria-hidden="true">08</span>
 							<span class="ui-sidebar__label">Properties</span>
 						</a>
-						<a class="ui-sidebar__item" href="#events">
+						<a class="ui-sidebar__item" href="#forms">
 							<span class="ui-sidebar__icon nav-index" aria-hidden="true">09</span>
+							<span class="ui-sidebar__label">Forms</span>
+						</a>
+						<a class="ui-sidebar__item" href="#events">
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">10</span>
 							<span class="ui-sidebar__label">Events</span>
 						</a>
 						<a class="ui-sidebar__item" href="#queries">
-							<span class="ui-sidebar__icon nav-index" aria-hidden="true">10</span>
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">11</span>
 							<span class="ui-sidebar__label">Queries &amp; watchers</span>
 						</a>
 						<a class="ui-sidebar__item" href="#styles">
-							<span class="ui-sidebar__icon nav-index" aria-hidden="true">11</span>
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">12</span>
 							<span class="ui-sidebar__label">Styles</span>
 						</a>
 					</div>
-	
+
 					<div class="ui-sidebar__group">
 						<p class="ui-sidebar__group-label">Advanced</p>
-	
+
 						<a class="ui-sidebar__item" href="#cache-once">
-							<span class="ui-sidebar__icon nav-index" aria-hidden="true">12</span>
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">13</span>
 							<span class="ui-sidebar__label">Cache &amp; once</span>
 						</a>
 						<a class="ui-sidebar__item" href="#plugins">
-							<span class="ui-sidebar__icon nav-index" aria-hidden="true">13</span>
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">14</span>
 							<span class="ui-sidebar__label">Plugins</span>
 						</a>
 						<a class="ui-sidebar__item" href="#hooks">
-							<span class="ui-sidebar__icon nav-index" aria-hidden="true">14</span>
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">15</span>
 							<span class="ui-sidebar__label">Hooks</span>
 						</a>
 						<a class="ui-sidebar__item" href="#helpers">
-							<span class="ui-sidebar__icon nav-index" aria-hidden="true">15</span>
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">16</span>
 							<span class="ui-sidebar__label">Helpers</span>
 						</a>
 						<a class="ui-sidebar__item" href="#imports">
-							<span class="ui-sidebar__icon nav-index" aria-hidden="true">16</span>
+							<span class="ui-sidebar__icon nav-index" aria-hidden="true">17</span>
 							<span class="ui-sidebar__label">Import map</span>
 						</a>
 					</div>
 				</nav>
-	
+
 				<footer class="sidebar-footer">
 					<span class="ui-avatar ui-xs ion-avatar" aria-hidden="true">β</span>
-					<span class="ui-sidebar__label">0.1.0-beta.1</span>
+					<span class="ui-sidebar__label">0.1.0-beta.2</span>
 				</footer>
 			</aside>
-	
+
 			<label
 				class="ui-sidebar__backdrop"
 				for="docs-sidebar-toggle"
 				aria-hidden="true"
 			></label>
-	
 		</div>
+
 		<main>
 			<section class="hero" id="overview">
 				<p class="eyebrow">Web Components engine</p>
 				<h1>Build components without leaving the platform behind.</h1>
 				<p class="lead">
 					Ion gives Custom Elements a compact reactive model for rendering,
-					state, properties, lifecycle, events, plugins and hooks.
+					state, properties, lifecycle, forms, events, plugins and hooks.
 				</p>
 
 				<div class="hero-actions">
 					<a class="ui-btn ui-lg" href="#first-component">Build a component</a>
-					<a class="ui-btn ui-outline ui-lg" href="#imports">API surface</a>
+					<a class="ui-btn ui-outline ui-lg" href="#forms">Build a form control</a>
 				</div>
 
 				<div class="feature-grid">
@@ -186,12 +190,12 @@
 
 					<article class="ui-card ui-rich ui-vertical">
 						<header>Platform-native</header>
-						<p>Components remain real custom elements with a real shadow root, native attributes, events and DOM.</p>
+						<p>Components remain real custom elements with native attributes, events, Shadow DOM and form participation.</p>
 					</article>
 
 					<article class="ui-card ui-rich ui-vertical">
-						<header>Lifecycle-aware</header>
-						<p>Render scheduling, reconnect behavior, and owned event cleanup are part of the component model.</p>
+						<header>Explicit escape hatches</header>
+						<p>Ion automates the safe common case while keeping native APIs available when a component needs custom behavior.</p>
 					</article>
 				</div>
 			</section>
@@ -200,7 +204,7 @@
 				<p class="eyebrow">01 · Start</p>
 				<h2>Install</h2>
 				<pre><code>pnpm add @gottheflag/ion</code></pre>
-				<p>Ion exposes separate entry points so optional subsystems stay explicit and bundlers can remove unused code.</p>
+				<p>Ion exposes separate entry points so optional subsystems stay explicit and unused code remains tree-shakeable.</p>
 			</section>
 
 			<section id="first-component">
@@ -246,7 +250,7 @@ class Counter extends Component {
 
 				<article class="ui-card ui-rich ui-vertical callout">
 					<header>Mental model</header>
-					<p>Changing reactive state schedules one render. Ion reconciles the returned template into the existing shadow DOM instead of replacing the whole root.</p>
+					<p>Reactive state schedules rendering. Ion reconciles the returned template into the existing shadow DOM instead of replacing the whole root.</p>
 				</article>
 			</section>
 
@@ -266,17 +270,15 @@ Ion.create(
 	"x-panel"
 );</code></pre>
 
-				<h3>Shadow root options</h3>
-				<pre><code>@Ion.create(
-	"x-dialog",
-	{
-		root: {
-			mode: "open",
-			delegatesFocus: true
-		}
-	}
-)
-class Dialog extends Component {}</code></pre>
+				<h3>Options</h3>
+				<div class="table-scroll"><table class="ui-strip">
+					<thead><tr><th>Option</th><th>Purpose</th></tr></thead>
+					<tbody>
+						<tr><td><code>root</code></td><td>Configure the attached shadow root.</td></tr>
+						<tr><td><code>extends</code></td><td>Register a customized built-in element.</td></tr>
+						<tr><td><code>form</code></td><td>Enable native form association for the component.</td></tr>
+					</tbody>
+				</table></div>
 			</section>
 
 			<section id="lifecycle">
@@ -284,27 +286,15 @@ class Dialog extends Component {}</code></pre>
 				<h2>A clean component cycle</h2>
 
 				<div class="table-scroll"><table class="ui-strip">
-					<thead>
-						<tr><th>Method</th><th>When it runs</th></tr>
-					</thead>
+					<thead><tr><th>Method</th><th>When it runs</th></tr></thead>
 					<tbody>
 						<tr><td><code>created()</code></td><td>After a real DOM connection. Runs again after a true disconnect/reconnect.</td></tr>
-						<tr><td><code>ready()</code></td><td>After the first successful render of that component instance.</td></tr>
-						<tr><td><code>removed()</code></td><td>After a genuine detach. Same-tick DOM moves do not create a false teardown.</td></tr>
+						<tr><td><code>ready()</code></td><td>After the first successful render of the component instance.</td></tr>
+						<tr><td><code>removed()</code></td><td>After a genuine detach. Same-tick moves do not create a false teardown.</td></tr>
 						<tr><td><code>adopted(oldDoc, newDoc)</code></td><td>When the element moves to another document.</td></tr>
 						<tr><td><code>attributeChanged(...)</code></td><td>When an observed attribute changes.</td></tr>
 					</tbody>
 				</table></div>
-
-				<pre><code>protected override created() {
-	this.on(
-		window,
-		"resize",
-		() =&gt; {
-			this.requestRender();
-		}
-	);
-}</code></pre>
 
 				<p>Listeners registered through <code>this.on()</code> belong to the current component lifetime and are released automatically on a real detach.</p>
 			</section>
@@ -325,9 +315,7 @@ class Dialog extends Component {}</code></pre>
 }</code></pre>
 
 				<div class="table-scroll"><table class="ui-strip">
-					<thead>
-						<tr><th>Interpolation</th><th>Behavior</th></tr>
-					</thead>
+					<thead><tr><th>Interpolation</th><th>Behavior</th></tr></thead>
 					<tbody>
 						<tr><td>string / number / bigint</td><td>Serialized with HTML-significant characters escaped.</td></tr>
 						<tr><td>null / undefined / boolean</td><td>Renders nothing.</td></tr>
@@ -336,11 +324,6 @@ class Dialog extends Component {}</code></pre>
 						<tr><td>object / function / symbol / DOM Node</td><td>Rejected instead of silently stringified.</td></tr>
 					</tbody>
 				</table></div>
-
-				<article class="ui-card ui-rich ui-vertical callout">
-					<header>Context still matters.</header>
-					<p>Escaping protects serialization boundaries. Values used in URL-like or otherwise security-sensitive attributes should still be validated for that semantic context.</p>
-				</article>
 			</section>
 
 			<section id="state">
@@ -364,18 +347,10 @@ toggle() {
 	reflect: true,
 	render: true
 })
-value = 0;
-
-@property({
-	attribute: "busy",
-	type: Boolean
-})
-loading = false;</code></pre>
+value = 0;</code></pre>
 
 				<div class="table-scroll"><table class="ui-strip">
-					<thead>
-						<tr><th>Option</th><th>Default</th><th>Purpose</th></tr>
-					</thead>
+					<thead><tr><th>Option</th><th>Default</th><th>Purpose</th></tr></thead>
 					<tbody>
 						<tr><td><code>type</code></td><td><code>String</code></td><td>String, Number, or Boolean conversion from attributes.</td></tr>
 						<tr><td><code>reflect</code></td><td><code>true</code></td><td>Reflect property writes to the matching attribute.</td></tr>
@@ -385,8 +360,203 @@ loading = false;</code></pre>
 				</table></div>
 			</section>
 
+			<section id="forms">
+				<p class="eyebrow">08 · Native forms</p>
+				<h2>Form-associated components</h2>
+				<p>Use <code>form: true</code> when the custom element itself should participate in an HTML form. Ion uses the browser's <code>ElementInternals</code> API; no hidden input is created.</p>
+
+				<pre><code>@Ion.create(
+	"ui-rating",
+	{
+		form: true
+	}
+)
+class Rating extends Component {
+	@property({
+		type: Number
+	})
+	value = 0;
+}</code></pre>
+
+				<p><code>form: true</code> is supported only for autonomous custom elements. Customized built-ins cannot use <code>attachInternals()</code>, so Ion rejects <code>{ form: true, extends: ... }</code> at registration.</p>
+
+				<h3>Automatic form value</h3>
+				<div class="table-scroll"><table class="ui-strip">
+					<thead><tr><th>Situation</th><th>Submitted value</th></tr></thead>
+					<tbody>
+						<tr><td><code>formValue</code> overridden</td><td>The normalized getter result.</td></tr>
+						<tr><td>No override, component has <code>value</code></td><td>The normalized <code>value</code>.</td></tr>
+						<tr><td>No override and no <code>value</code></td><td><code>null</code>; the component contributes no entry.</td></tr>
+					</tbody>
+				</table></div>
+
+				<div class="table-scroll"><table class="ui-strip">
+					<thead><tr><th>Automatic value</th><th>Behavior</th></tr></thead>
+					<tbody>
+						<tr><td>string</td><td>Submitted unchanged.</td></tr>
+						<tr><td>finite number / bigint</td><td>Converted with <code>String(value)</code>.</td></tr>
+						<tr><td><code>File</code> / <code>FormData</code></td><td>Passed to the native form API.</td></tr>
+						<tr><td>null / undefined</td><td>Submits nothing.</td></tr>
+						<tr><td>Date / boolean / object / symbol / Blob / non-finite number</td><td>Rejected. Serialize intentionally.</td></tr>
+					</tbody>
+				</table></div>
+
+				<article class="ui-card ui-rich ui-vertical callout">
+					<header>Keep <code>formValue</code> state-based</header>
+					<p>Ion may synchronize <code>formValue</code> before the next render. Derive it from reactive properties/state, not from <code>this.$()</code> DOM reads.</p>
+				</article>
+
+				<h3>Computed value from multiple controls</h3>
+				<pre><code>function toUtc(
+	local: string,
+	offset: string
+): string | null {
+	if (!local) return null;
+
+	const date = new Date(
+		&#96;&#36;{local}:00&#36;{offset}&#96;
+	);
+
+	return Number.isNaN(date.getTime())
+		? null
+		: date.toISOString();
+}
+
+@Ion.create(
+	"ui-datetime",
+	{
+		form: true
+	}
+)
+class DateTime extends Component {
+	@state
+	private local = "";
+
+	@state
+	private offset = "+03:00";
+
+	protected override get formValue() {
+		return toUtc(
+			this.local,
+			this.offset
+		);
+	}
+}</code></pre>
+				<p>The component can render one native input, several controls, a canvas, buttons, or no native form element. Only the host's <code>formValue</code> is submitted.</p>
+
+				<h3>Synchronization rules</h3>
+				<ul>
+					<li>Initial form value is synchronized synchronously when the component connects.</li>
+					<li><code>@property</code> and <code>@state</code> changes synchronize automatically.</li>
+					<li><code>@property({ render: false })</code> still synchronizes while connected.</li>
+					<li>A connected <code>requestRender()</code> reapplies the automatic value.</li>
+					<li>State changed while detached is synchronized when the component reconnects, including same-tick DOM moves.</li>
+					<li>Assigning the same reactive value is a no-op, so it does not trigger a new synchronization.</li>
+				</ul>
+
+				<h3>Form capability detection</h3>
+				<p><code>formControl</code> is reserved on all Ion components and throws when the component was not registered with <code>form: true</code>. Generic code and plugins should feature-detect without exceptions:</p>
+				<pre><code>if (host.hasFormControl) {
+	host.formControl.reportValidity();
+}</code></pre>
+
+				<h3>Explicit native value</h3>
+				<pre><code>this.formControl.setValue(
+	"serialized-value"
+);
+
+this.formControl.setValue(
+	file,
+	"restore-state-v1"
+);</code></pre>
+				<p><code>setValue(value, state?)</code> accepts only the native form value/state types: <code>string</code>, <code>File</code>, <code>FormData</code>, or <code>null</code>. It is intentionally non-sticky: the next automatic synchronization reapplies <code>formValue</code>.</p>
+
+				<h3>Multiple submitted entries</h3>
+				<pre><code>protected override get formValue() {
+	const data = new FormData();
+
+	data.set(
+		"start",
+		this.start
+	);
+
+	data.set(
+		"end",
+		this.end
+	);
+
+	return data;
+}</code></pre>
+
+				<h3>Native validity</h3>
+				<pre><code>this.formControl.setValidity(
+	{
+		customError: true
+	},
+	"Please provide a valid value.",
+	this.$("input") ?? undefined
+);
+
+this.formControl.reportValidity();
+
+// valid again
+this.formControl.clearValidity();</code></pre>
+				<p>If any validity flag is true, provide a non-empty message. For reliable browser reporting, make the host focusable or pass a focusable shadow descendant as the validity anchor; <code>delegatesFocus</code> is useful for input-like components.</p>
+				<p>Ion does not invent constraints from arbitrary attributes. The component defines its native validity; the browser handles form blocking, <code>invalid</code> events, and validity reporting.</p>
+
+				<div class="table-scroll"><table class="ui-strip">
+					<thead><tr><th>API</th><th>Purpose</th></tr></thead>
+					<tbody>
+						<tr><td><code>this.formControl.owner</code></td><td>Associated <code>HTMLFormElement</code>, or null.</td></tr>
+						<tr><td><code>this.formControl.labels</code></td><td>Labels associated with the custom element.</td></tr>
+						<tr><td><code>this.formControl.validity</code></td><td>Native <code>ValidityState</code>.</td></tr>
+						<tr><td><code>this.formControl.validationMessage</code></td><td>Current native validation message.</td></tr>
+						<tr><td><code>this.formControl.willValidate</code></td><td>Whether the element participates in constraint validation.</td></tr>
+						<tr><td><code>setValue(value, state?)</code></td><td>Set a native value and optional restoration state explicitly.</td></tr>
+						<tr><td><code>setValidity(flags, message, anchor?)</code></td><td>Set native invalidity flags and message.</td></tr>
+						<tr><td><code>clearValidity()</code></td><td>Return the component to a valid state.</td></tr>
+						<tr><td><code>checkValidity()</code></td><td>Run native validity checking.</td></tr>
+						<tr><td><code>reportValidity()</code></td><td>Run checking and request browser reporting.</td></tr>
+					</tbody>
+				</table></div>
+
+				<h3>Reset and restore lifecycle</h3>
+				<pre><code>import type {
+	FormRestoreMode,
+	FormState
+} from "@gottheflag/ion";
+
+protected override formAssociated(
+	form: HTMLFormElement | null
+) {}
+
+protected override formDisabled(
+	disabled: boolean
+) {}
+
+protected override formReset() {}
+
+protected override formRestore(
+	state: FormState,
+	mode: FormRestoreMode
+) {}</code></pre>
+				<p>On the first connection, Ion captures <code>value</code> only when that property is writable. Native reset restores that first-connect baseline before <code>formReset()</code>. Getter-only/computed controls reset their own state in <code>formReset()</code>.</p>
+				<p>After <code>formReset()</code> or <code>formRestore()</code>, Ion reapplies automatic <code>formValue</code>. Therefore an explicit <code>setValue()</code> inside either hook is temporary unless the hook also updates the state that <code>formValue</code> reads.</p>
+
+				<h3>Association scope</h3>
+				<p>Normal native semantics apply: <code>name</code> controls submission, <code>disabled</code> removes the control from submission, and the <code>form="id"</code> attribute can associate with a form in the same tree. A custom element inside a shadow root cannot use <code>form="id"</code> to reach a light-DOM form outside that tree.</p>
+
+				<h3>Browser support</h3>
+				<p>Ion's browser test suite runs against Chromium, Firefox, and WebKit. Form association still depends on the browser implementing <code>attachInternals()</code>; Ion rejects <code>form: true</code> at registration when that platform API is unavailable.</p>
+
+				<article class="ui-card ui-rich ui-vertical callout">
+					<header>Rule of thumb</header>
+					<p>Use <code>value</code> for ordinary controls. Override <code>formValue</code> for computed or differently named data. Use <code>formControl</code> only for explicit native operations.</p>
+				</article>
+			</section>
+
 			<section id="events">
-				<p class="eyebrow">08 · Events</p>
+				<p class="eyebrow">09 · Events</p>
 				<h2>Own listeners and emit typed events</h2>
 
 				<h3>Delegated event</h3>
@@ -425,12 +595,10 @@ this.emit(
 		value: this.count
 	}
 );</code></pre>
-
-				<p>Custom events bubble and cross the shadow boundary by default. Override <code>bubbles</code>, <code>composed</code>, or <code>cancelable</code> when needed.</p>
 			</section>
 
 			<section id="queries">
-				<p class="eyebrow">09 · DOM state</p>
+				<p class="eyebrow">10 · DOM state</p>
 				<h2>Queries and watchers</h2>
 
 				<h3><code>@query</code></h3>
@@ -460,7 +628,7 @@ private modeChanged(
 			</section>
 
 			<section id="styles">
-				<p class="eyebrow">10 · Styling</p>
+				<p class="eyebrow">11 · Styling</p>
 				<h2>Constructable stylesheets</h2>
 				<p>Define styles as a CSS string, a <code>CSSStyleSheet</code>, or an array containing both.</p>
 
@@ -468,15 +636,11 @@ private modeChanged(
 	:host {
 		display: block;
 	}
-
-	button {
-		border-radius: 0.5rem;
-	}
 &#96;;</code></pre>
 			</section>
 
 			<section id="cache-once">
-				<p class="eyebrow">11 · Small tools</p>
+				<p class="eyebrow">12 · Small tools</p>
 				<h2>Cache and once</h2>
 
 				<div class="two-column">
@@ -501,7 +665,7 @@ initialize() {
 			</section>
 
 			<section id="plugins">
-				<p class="eyebrow">12 · Extension</p>
+				<p class="eyebrow">13 · Extension</p>
 				<h2>Plugins</h2>
 				<p>Plugins are optional. Import the plugin entry point only when the application needs the plugin runtime.</p>
 
@@ -510,39 +674,21 @@ initialize() {
 } from "@gottheflag/ion/plugin";
 
 class MetricsPlugin
-	extends Plugin&lt;
-		Panel,
-		{
-			label: string;
-		}
-	&gt; {
-
-	get label() {
-		return this.options.label;
-	}
-
+	extends Plugin&lt;Panel&gt; {
 	protected afterRender() {
 		console.log(
-			"rendered",
 			this.host
 		);
 	}
 }
 
-Panel.use(
-	MetricsPlugin,
-	{
-		label: "dashboard"
-	}
-);</code></pre>
-
-				<p>Read a plugin API from an instance with <code>this.plugin(MetricsPlugin)</code>. Plugin lifecycle callbacks cover creation, ready, render boundaries, attribute changes, adoption and removal.</p>
+Panel.use(MetricsPlugin);</code></pre>
 			</section>
 
 			<section id="hooks">
-				<p class="eyebrow">13 · Instrumentation</p>
+				<p class="eyebrow">14 · Instrumentation</p>
 				<h2>Hooks</h2>
-				<p>Hooks observe lifecycle phases globally or for one component class. They are best suited to instrumentation and cross-cutting extensions.</p>
+				<p>Hooks observe lifecycle phases globally or for one component class. Use them for instrumentation and cross-cutting extensions rather than ordinary component state.</p>
 
 				<pre><code>import {
 	hok
@@ -553,27 +699,19 @@ const handle =
 		Panel,
 		"render",
 		host =&gt; {
-			console.log(
-				"rendered",
-				host
-			);
+			console.log(host);
 		}
 	);
 
-// later
 handle.off();</code></pre>
-
-				<p>Phases include define, init, create, render, ready, remove, attribute change, adoption, event emission, and plugin installation.</p>
 			</section>
 
 			<section id="helpers">
-				<p class="eyebrow">14 · Component API</p>
+				<p class="eyebrow">15 · Component API</p>
 				<h2>Helpers</h2>
 
 				<div class="table-scroll"><table class="ui-strip">
-					<thead>
-						<tr><th>API</th><th>Purpose</th></tr>
-					</thead>
+					<thead><tr><th>API</th><th>Purpose</th></tr></thead>
 					<tbody>
 						<tr><td><code>this.$("#id")</code></td><td>First matching element inside the shadow root.</td></tr>
 						<tr><td><code>this.$$(".row")</code></td><td>All matching elements inside the shadow root.</td></tr>
@@ -587,13 +725,11 @@ handle.off();</code></pre>
 			</section>
 
 			<section id="imports">
-				<p class="eyebrow">15 · Reference</p>
+				<p class="eyebrow">16 · Reference</p>
 				<h2>Import map</h2>
 
 				<div class="table-scroll"><table class="ui-strip">
-					<thead>
-						<tr><th>Entry point</th><th>Main exports</th></tr>
-					</thead>
+					<thead><tr><th>Entry point</th><th>Main exports</th></tr></thead>
 					<tbody>
 						<tr><td><code>@gottheflag/ion</code></td><td><code>Component</code>, <code>Ion</code>, utility helpers</td></tr>
 						<tr><td><code>@gottheflag/ion/template</code></td><td><code>html</code>, template types</td></tr>
@@ -607,12 +743,13 @@ handle.off();</code></pre>
 			<section class="closing">
 				<article class="ui-card ui-rich ui-vertical">
 					<header>Keep the model simple</header>
-					<p>A component owns its state, renders a template, reacts to platform events, and releases lifetime-owned work when it truly leaves the DOM. Reach for plugins or hooks when a concern really crosses component boundaries.</p>
+					<p>A component owns its state, renders a template, reacts to platform events, and uses native browser capabilities where they already exist. Prefer the automatic common path; override only the behavior your component actually needs.</p>
 					<a class="ui-btn" href="#first-component">Back to the first component</a>
 				</article>
 			</section>
 		</main>
 	</div>
+
 	<script type="module" src="./app.js"></script>
 </body>
 </html>

@@ -6,6 +6,9 @@ import {
 import { run as runHook } from "../hook/hook.js";
 import { assertValidTag } from "../utils.js";
 
+const hasOwn =
+	Object.prototype.hasOwnProperty;
+
 function defineComponent<
 	T extends CustomElementConstructor
 >(
@@ -14,6 +17,28 @@ function defineComponent<
 	options?: Options
 ): T {
 	assertValidTag(name);
+
+	const form =
+		options?.form === true;
+
+	if (
+		form &&
+		options?.extends
+	) {
+		throw new TypeError(
+			"[ION::FORM] form: true is only supported for autonomous custom elements because customized built-ins cannot use attachInternals()."
+		);
+	}
+
+	if (
+		form &&
+		typeof HTMLElement.prototype
+			.attachInternals !== "function"
+	) {
+		throw new Error(
+			"[ION::FORM] Form-associated custom elements are not supported in this browser."
+		);
+	}
 
 	const existing =
 		customElements.get(name);
@@ -28,8 +53,38 @@ function defineComponent<
 		return ctor;
 	}
 
+	const normalizedOptions =
+		options
+			? {
+				...options,
+				form
+			}
+			: undefined;
+
 	(ctor as any)[ OPTIONS_KEY ] =
-		options;
+		normalizedOptions;
+
+	const inheritedForm =
+		(ctor as any).formAssociated === true;
+
+	if (
+		form ||
+		inheritedForm ||
+		hasOwn.call(
+			ctor,
+			"formAssociated"
+		)
+	) {
+		Object.defineProperty(
+			ctor,
+			"formAssociated",
+			{
+				value: form,
+				writable: true,
+				configurable: true
+			}
+		);
+	}
 
 	runHook(
 		ctor,
@@ -42,7 +97,8 @@ function defineComponent<
 		ctor,
 		{
 			extends:
-				options?.extends
+				normalizedOptions
+					?.extends
 		}
 	);
 
@@ -98,8 +154,8 @@ export class Ion {
 
 			const decoratorOptions =
 				nameOrOptions as
-				| Options
-				| undefined;
+					| Options
+					| undefined;
 
 			return (
 				ctor: T

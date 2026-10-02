@@ -1,4 +1,5 @@
 import { getOrInit } from "../../core/collections.js";
+import { syncForm } from "../../core/form.js";
 import { collectClassArrays, getOrInitOwn } from "../../core/metadata.js";
 import { hok } from "../../hook/hook.js";
 import { toKebabCase } from "../../utils.js";
@@ -127,6 +128,8 @@ hok.before("create", (host: any) => {
 
 				if (prop.render) {
 					host.requestRender?.();
+				} else if (host.isConnected) {
+					syncForm(host);
 				}
 			},
 			enumerable: true,

@@ -15,6 +15,16 @@ import {
 	styleSheets,
 	type Styles
 } from "./styles.js";
+import {
+	attachForm,
+	captureDefaultValue,
+	resetDefaultValue,
+	syncForm,
+	type FormController,
+	type FormRestoreMode,
+	type FormState,
+	type FormValueSource
+} from "./form.js";
 import type {
 	Api as PluginApi,
 	Ctor as PluginCtor,
@@ -26,7 +36,7 @@ import { pluginRuntime } from "./plugin-bridge.js";
 
 /**
  * Base class for components.
- * 
+ *
  * @remarks
  * This class is not meant to be used directly.
  * Instead, extend this class and use the decorators to define the component.
@@ -34,15 +44,22 @@ import { pluginRuntime } from "./plugin-bridge.js";
 export abstract class Component extends HTMLElement implements Events {
 	protected readonly options: ComponentOptions | undefined;
 
+	#form?: FormController;
+
 	constructor() {
 		super();
 
 		this.options = (this.constructor as any)[ OPTIONS_SYMBOL ] as ComponentOptions | undefined;
 
+		if (this.options?.form === true) {
+			this.#form =
+				attachForm(this);
+		}
+
 		this.runHook("before:init");
 
 		this.root = this.attachShadow({
-			mode: this.options?.root?.mode ?? 'open',
+			mode: this.options?.root?.mode ?? "open",
 			...this.options?.root
 		});
 
@@ -53,7 +70,7 @@ export abstract class Component extends HTMLElement implements Events {
 
 	/**
 	 * Shadow root of the component.
-	 * 
+	 *
 	 * ---
 	 * @example
 	 * this.root.innerHTML = `<h1>Hello World</h1>`;
@@ -61,11 +78,56 @@ export abstract class Component extends HTMLElement implements Events {
 	protected readonly root: ShadowRoot;
 
 	/**
+	 * Whether this component was registered with native form association.
+	 *
+	 * Use this for generic code and plugins before reading `formControl`.
+	 */
+	get hasFormControl(): boolean {
+		return this.#form !== undefined;
+	}
+
+	/**
+	 * Native form-control API for a form-associated component.
+	 *
+	 * @throws When the component was not registered with `form: true`.
+	 */
+	get formControl(): FormController {
+		if (!this.#form) {
+			throw new Error(
+				"[ION::FORM] This component is not form-associated. Register it with { form: true }."
+			);
+		}
+
+		return this.#form;
+	}
+
+	/**
+	 * Value submitted by a form-associated component.
+	 *
+	 * @remarks
+	 * The default implementation uses a `value` property when one exists.
+	 * Strings are submitted directly; numbers and bigints are serialized to
+	 * strings. File and FormData values pass through unchanged. Components
+	 * with another representation should override this getter.
+	 */
+	protected get formValue(): FormValueSource {
+		if (!("value" in this)) {
+			return null;
+		}
+
+		return (
+			this as HTMLElement & {
+				value: FormValueSource;
+			}
+		).value;
+	}
+
+	/**
 	 * Styles applied to the component.
-	 * 
+	 *
 	 * @remarks
 	 * Styles are applied to the component's shadow root.
-	 * 
+	 *
 	 * ---
 	 * @example
 	 * sheet = new CSSStyleSheet();
@@ -74,7 +136,7 @@ export abstract class Component extends HTMLElement implements Events {
 	 *     color: red;
 	 *   }
 	 * `);
-	 * 
+	 *
 	 * static styles = [
 	 *   "h1 { color: red; }",
 	 *   `
@@ -88,11 +150,11 @@ export abstract class Component extends HTMLElement implements Events {
 	protected static styles:
 		| string
 		| CSSStyleSheet
-		| (string | CSSStyleSheet)[] = '';
+		| (string | CSSStyleSheet)[] = "";
 
 	/**
 	 * Is the component queued for rendering?
-	 * 
+	 *
 	 * @remarks
 	 * Prevent multiple render requests.
 	 * @internal
@@ -122,15 +184,14 @@ export abstract class Component extends HTMLElement implements Events {
 
 	/**
 	 * Renders the component.
-	 * 
-	 * 
+	 *
 	 * @remarks
 	 * - Called automatically when the component is connected to the DOM.
 	 * - Re-called automatically via internal mechanisms.
 	 * - You **never** need to call this method manually (use `requestRender` instead).
-	 * 
+	 *
 	 * @see {@link Component.requestRender | requestRender}
-	 * 
+	 *
 	 * ---
 	 * @example
 	 * protected render() {
@@ -141,48 +202,51 @@ export abstract class Component extends HTMLElement implements Events {
 
 	/**
 	 * Queue requests to render the component.
-	 * 
+	 *
 	 * Safe to call multiple times (eventually a single request will be made).
-	 * 
+	 * Form-associated components synchronize `formValue` immediately on every
+	 * connected request, even when a render is already queued.
+	 *
 	 * ---
 	 * @example
 	 * this.var++;
 	 * requestRender();
 	 */
 	protected requestRender() {
-		if (
-			this._renderQueued ||
-			!this.isConnected
-		) return;
+		if (!this.isConnected) return;
 
-		this._renderQueued = true;
+		if (!this._renderQueued) {
+			this._renderQueued = true;
 
-		queueMicrotask(() => {
-			this._renderQueued = false;
+			queueMicrotask(() => {
+				this._renderQueued = false;
 
-			if (!this.isConnected) return;
+				if (!this.isConnected) return;
 
-			try {
-				this.runHook("before:render");
+				try {
+					this.runHook("before:render");
 
-				const result = this.render?.();
-				if (result) {
-					commitTemplate(result, this.root);
+					const result = this.render?.();
+					if (result) {
+						commitTemplate(result, this.root);
+					}
+
+					this.runHook("after:render");
+
+					if (!this.isReady) {
+						this.isReady = true;
+
+						this.runHook("before:ready");
+						this.ready?.();
+						this.runHook("after:ready");
+					}
+				} catch (err) {
+					console.error(`[ION::RENDER] <${this.localName}>`, err);
 				}
+			});
+		}
 
-				this.runHook("after:render");
-
-				if (!this.isReady) {
-					this.isReady = true;
-
-					this.runHook("before:ready");
-					this.ready?.();
-					this.runHook("after:ready");
-				}
-			} catch (err) {
-				console.error(`[ION::RENDER] <${this.localName}>`, err);
-			}
-		});
+		syncForm(this);
 	}
 
 	/**
@@ -192,6 +256,7 @@ export abstract class Component extends HTMLElement implements Events {
 	connectedCallback() {
 		if (this.#disconnectPending) {
 			this.#disconnectPending = false;
+			this.requestRender();
 			return;
 		}
 
@@ -200,6 +265,9 @@ export abstract class Component extends HTMLElement implements Events {
 		}
 
 		this.runHook("before:create");
+
+		captureDefaultValue(this);
+
 		this.created?.();
 		this.runHook("after:create");
 
@@ -232,7 +300,7 @@ export abstract class Component extends HTMLElement implements Events {
 
 	/**
 	 * Lifecycle hook called when the component is adopted.
-	 * 
+	 *
 	 * @remarks
 	 * Moved to another document (e.g. iframe).
 	 */
@@ -245,9 +313,52 @@ export abstract class Component extends HTMLElement implements Events {
 		this.runHook("after:adopted", oldDoc, newDoc);
 	}
 
+	/** Called when a form-associated component becomes associated with a form. */
+	protected formAssociated?(form: HTMLFormElement | null): void;
+	formAssociatedCallback(form: HTMLFormElement | null) {
+		this.formAssociated?.(form);
+	}
+
+	/** Called when native form semantics enable or disable the component. */
+	protected formDisabled?(disabled: boolean): void;
+	formDisabledCallback(disabled: boolean) {
+		this.formDisabled?.(disabled);
+	}
+
+	/**
+	 * Called when the owning form is reset.
+	 *
+	 * @remarks
+	 * Ion restores the initial `value` property first when one exists, then
+	 * invokes this hook for any additional component-specific reset work.
+	 */
+	protected formReset?(): void;
+	formResetCallback() {
+		resetDefaultValue(this);
+		this.formReset?.();
+		syncForm(this);
+	}
+
+	/** Called when the browser restores form state. */
+	protected formRestore?(
+		state: FormState,
+		mode: FormRestoreMode
+	): void;
+	formStateRestoreCallback(
+		state: FormState,
+		mode: FormRestoreMode
+	) {
+		this.formRestore?.(
+			state,
+			mode
+		);
+
+		syncForm(this);
+	}
+
 	/**
 	 * List of attributes that should be observed.
-	 * 
+	 *
 	 * @remarks
 	 * Defining this property here isn't important (it can be removed).
 	 */
@@ -255,11 +366,11 @@ export abstract class Component extends HTMLElement implements Events {
 
 	/**
 	 * Lifecycle hook called when an attribute is changed.
-	 * 
+	 *
 	 * @param name The name of the attribute that changed.
 	 * @param oldValue The previous value of the attribute.
 	 * @param newValue The new value of the attribute.
-	 * 
+	 *
 	 * ---
 	 * @example
 	 * setAttribute("value", "xyz");
@@ -340,7 +451,7 @@ export abstract class Component extends HTMLElement implements Events {
 
 	/**
 	 * Emits a custom event.
-	 * 
+	 *
 	 * @default
 	 * - `bubbles`: true
 	 *   - Event travels up the DOM tree.
@@ -348,12 +459,12 @@ export abstract class Component extends HTMLElement implements Events {
 	 *   - Event can be listened to outside the component.
 	 * - `cancelable`: false
 	 *   - Default event cannot be prevented.
-	 * 
+	 *
 	 * @param type Event type.
 	 * @param detail Event details.
 	 * @param options Event options.
 	 * @returns The custom event.
-	 * 
+	 *
 	 * ---
 	 * @example
 	 * this.emit("message", { text: "Hello World" });
@@ -380,10 +491,10 @@ export abstract class Component extends HTMLElement implements Events {
 
 	/**
 	 * Queries the first matching child element inside the render root.
-	 * 
+	 *
 	 * @param selector Selector to a child element.
 	 * @returns The first child element that matches the selector, or null if not found.
-	 * 
+	 *
 	 * ---
 	 * @example
 	 * this.$("#btn"); // <button id="btn">
@@ -394,10 +505,10 @@ export abstract class Component extends HTMLElement implements Events {
 
 	/**
 	 * Queries all matching child elements inside the render root.
-	 * 
+	 *
 	 * @param selector Selector to child elements.
 	 * @returns The child elements that match the selector, or an empty array if not found.
-	 * 
+	 *
 	 * ---
 	 * @example
 	 * this.$$("li"); // [<li>, <li>, ...]
@@ -408,21 +519,21 @@ export abstract class Component extends HTMLElement implements Events {
 
 	/**
 	 * Gets or sets an attribute.
-	 * 
+	 *
 	 * @param name Attribute name.
 	 * @param value Attribute value.
 	 * @returns Attribute value if no value is provided, otherwise nothing.
-	 * 
+	 *
 	 * ---
 	 * @example
 	 * this.attr("value"); // returns "xyz"
-	 * 
+	 *
 	 * @example
 	 * this.attr("value", "xyz"); // `value="xyz"`
-	 * 
+	 *
 	 * @example
 	 * this.attr("disabled", true); // `disabled`
-	 * 
+	 *
 	 * @example
 	 * this.attr("hidden", false); // attribute removed
 	 */
