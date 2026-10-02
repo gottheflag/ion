@@ -164,8 +164,6 @@ if (this.hasFormControl) {
 	this.formControl.setValue("serialized-value");
 }
 
-this.formControl.setValue("serialized-value");
-
 this.formControl.setValidity(
 	{
 		customError: true

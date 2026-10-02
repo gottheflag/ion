@@ -85,7 +85,7 @@ export class DateTimeControl
 			</label>
 
 			<label>
-				Timezone
+				UTC offset
 				<select id="timezone">
 					<option value="+03:00">UTC+03:00</option>
 					<option value="+00:00">UTC</option>
