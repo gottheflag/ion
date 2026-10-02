@@ -9,6 +9,7 @@
 
 		"declaration": true,
 		"declarationMap": false,
+		"stripInternal": true
 	},
 	"include": [
 		"src/**/*.ts"
